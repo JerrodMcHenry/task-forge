@@ -34,3 +34,11 @@ def filter_tasks_by_status(tasks, status):
      
     return results
 
+def search_tasks(tasks, query):
+    results = []
+    
+    for task in tasks.values():
+        if query.lower() in task["title"].lower():
+            results.append(task)
+            
+    return results 

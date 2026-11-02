@@ -1,6 +1,6 @@
 
 from storage import save_tasks, load_tasks
-from task_service import create_task, complete_task, delete_task, filter_tasks_by_status
+from task_service import create_task, complete_task, delete_task, filter_tasks_by_status, search_tasks
 
 
 def main():
@@ -36,6 +36,7 @@ def main():
             print("1. All tasks")
             print("2. Pending tasks")
             print("3. Completed tasks")
+            print("4. Search tasks by title")
             
             filter_choice = input("Choose an option: ")
             
@@ -47,6 +48,11 @@ def main():
                 
             elif filter_choice == "3":
                 selected_tasks = filter_tasks_by_status(tasks, "completed")
+                
+            elif filter_choice == "4":
+                query = input("Enter a task title to search: ")
+                selected_tasks = search_tasks(tasks, query)
+                
             
             else:
                 print("Invalid Option")
