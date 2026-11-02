@@ -1,6 +1,6 @@
 
 from storage import save_tasks, load_tasks
-from task_service import create_task, complete_task, delete_task, filter_tasks_by_status, search_tasks
+from task_service import create_task, complete_task, delete_task, filter_tasks_by_status, search_tasks, update_task_title
 
 
 def main():
@@ -14,6 +14,7 @@ def main():
         print("3. Complete task")
         print("4. Delete task")
         print("5. Exit")
+        print("6. Edit task title")
 
         choice = input("Choose an option: ")
 
@@ -52,6 +53,8 @@ def main():
             elif filter_choice == "4":
                 query = input("Enter a task title to search: ")
                 selected_tasks = search_tasks(tasks, query)
+                
+            
                 
             
             else:
@@ -101,6 +104,22 @@ def main():
         elif choice == "5":
             print("Goodbye!")
             break
+        
+        elif choice == "6":
+            try:
+                task_id = int(input("Enter task ID: "))
+            except ValueError:
+                print("Invalid task ID.")
+                continue
+            
+            new_title = input("Enter new title: ")
+            
+            if update_task_title(tasks, task_id, new_title):
+                save_tasks(tasks)
+                print("Tasks updated successfully ")
+                
+            else:
+                print("Task not found or title is invalid.")
 
         else:
             print("Invalid option. Please choose 1-5.")

@@ -42,3 +42,14 @@ def search_tasks(tasks, query):
             results.append(task)
             
     return results 
+
+def update_task_title(tasks, task_id, new_title):
+    if not new_title.strip():
+        return False
+    
+    if task_id not in tasks:
+        return False
+    
+    tasks[task_id]["title"] = new_title.strip()
+    
+    return True
