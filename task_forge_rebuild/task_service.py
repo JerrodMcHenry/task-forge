@@ -25,3 +25,12 @@ def delete_task(tasks, task_id):
     del tasks[task_id]
     return True
 
+def filter_tasks_by_status(tasks, status):
+    results = []
+    
+    for task in tasks.values():
+        if task['status'] == status:
+         results.append(task)
+     
+    return results
+

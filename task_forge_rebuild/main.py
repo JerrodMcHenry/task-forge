@@ -1,6 +1,6 @@
 
 from storage import save_tasks, load_tasks
-from task_service import create_task, complete_task, delete_task
+from task_service import create_task, complete_task, delete_task, filter_tasks_by_status
 
 
 def main():
@@ -31,10 +31,31 @@ def main():
             next_task_id += 1
 
         elif choice == "2":
-            if not tasks:
-                print("No tasks found")
+            
+            print("\nView Tasks")
+            print("1. All tasks")
+            print("2. Pending tasks")
+            print("3. Completed tasks")
+            
+            filter_choice = input("Choose an option: ")
+            
+            if filter_choice == "1":
+                selected_tasks = list(tasks.values())
+                
+            elif filter_choice == "2":
+                selected_tasks = filter_tasks_by_status(tasks, "pending")
+                
+            elif filter_choice == "3":
+                selected_tasks = filter_tasks_by_status(tasks, "completed")
+            
             else:
-                for task in tasks.values():
+                print("Invalid Option")
+                continue
+                            
+            if not selected_tasks:
+                print("No matching tasks found")
+            else:
+                for task in selected_tasks:
                     print(
                         f'ID: {task["id"]} | '
                         f'{task["title"]} | '
