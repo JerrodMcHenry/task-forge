@@ -14,13 +14,12 @@ def main():
     next_task_id = max(tasks.keys(), default=0) + 1
 
     while True:
-        print("\n--- Task Manager ---")
         print("1. Create task")
         print("2. View tasks")
         print("3. Complete task")
         print("4. Delete task")
-        print("5. Exit")
-        print("6. Edit task title")
+        print("5. Edit task title")
+        print("6. Exit")
 
         choice = input("Choose an option: ")
 
@@ -57,7 +56,12 @@ def main():
                 selected_tasks = filter_tasks_by_status(tasks, "completed")
                 
             elif filter_choice == "4":
-                query = input("Enter a task title to search: ")
+                query = input("Enter a task title to search: ").strip()
+                
+                if not query:
+                    print("Search cannot be empty")
+                    continue
+                
                 selected_tasks = search_tasks(tasks, query)
                 
             
@@ -107,11 +111,11 @@ def main():
             else:
                 print("Task not found")
 
-        elif choice == "5":
+        elif choice == "6":
             print("Goodbye!")
             break
         
-        elif choice == "6":
+        elif choice == "5":
             try:
                 task_id = int(input("Enter task ID: "))
             except ValueError:
@@ -122,7 +126,7 @@ def main():
             
             if update_task_title(tasks, task_id, new_title):
                 save_tasks(tasks)
-                print("Tasks updated successfully ")
+                print("Tasks updated successfully.")
                 
             else:
                 print("Task not found or title is invalid.")
