@@ -4,7 +4,13 @@ from task_service import create_task, complete_task, delete_task, filter_tasks_b
 
 
 def main():
-    tasks = load_tasks()
+    
+    try: 
+        tasks = load_tasks()
+    except ValueError as error:
+        print(f"Startup error: {error}")
+        return
+    
     next_task_id = max(tasks.keys(), default=0) + 1
 
     while True:
